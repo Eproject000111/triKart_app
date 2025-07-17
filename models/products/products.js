@@ -1,14 +1,13 @@
 const mongoose = require("mongoose")
 
 const productSchema = mongoose.Schema({
-
     title : {type: String, required: [true, 'Product name is required']}, // Name of the product. If missing, an error message "Product name is required" is thrown.
     image :  {type: String, default: null }, // URL of the main product image. Defaults to null if not provided.
     description : {type: String, required: [true, 'description required']}, // Detailed information about the product. Throws an error "description required" if missing.
     summary: { type: String, default: null }, //A short summary of the product, which can be used for quick previews or search results. Defaults to null.
     cover: { type: String, default: null }, // URL of the cover image for the product. Defaults to null.
     isFeatured: { type: Boolean, default: false }, // Marks a product as featured. Defaults to false. Indexed for quick lookups.
-    category : {type:mongoose.Schema.Types.ObjectId, ref:'categories'},
+    categoryId : {type:mongoose.Schema.Types.ObjectId, ref:'categories'},
 
 }, { timestamps : true })
 

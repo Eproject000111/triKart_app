@@ -1,8 +1,12 @@
-const { register, login} = require("./../../controllers/auth/auth");
+const { register, login, login_old, loginToVerifyOtp} = require("./../../controllers/auth/auth");
 
-module.exports = function(app,middlewareAuth){
-    console.log('workkrkr')
+module.exports = function(app,middlewareAuth, route){
+    
+    app.post(route + '/register', register);
 
-    app.post('/register', register);
-    app.post("/login", login)
+    app.post(route + "/login", login)
+
+    app.post(route + "/loginToVerifyOtp", loginToVerifyOtp)
+
+    app.post(route + "/login_old", login_old)
 }

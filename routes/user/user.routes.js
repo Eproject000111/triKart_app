@@ -1,8 +1,14 @@
-const {updateUser, deleteUser, userById, resetPassword } = require("./../../controllers/auth/auth");
+const {updateUser, deleteUser, getUserById, resetPassword, getAllUsers } = require("./../../controllers/auth/auth");
 
-module.exports = function(app,middlewareAuth){
-    app.post("/update-user", updateUser)
-    app.get("/user", userById)
-    app.get("/delete-user", deleteUser)
-    app.post("/reset-password", resetPassword)
+module.exports = function(app,middlewareAuth,route){
+
+    app.post(`${route}/update`, updateUser)
+
+    app.get(`${route}/userById`, getUserById)
+
+    app.get(`${route}/delete`, deleteUser)
+
+    app.post(`${route}/resetPassword`, resetPassword)
+
+    app.get(`${route}/all`, getAllUsers)
 }

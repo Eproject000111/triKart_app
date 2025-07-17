@@ -1,8 +1,14 @@
 const { addProduct, updateProduct, deleteProduct, getAllProducts } = require("./../../controllers/products/products")
 
 module.exports = function(app,middlewareAuth){
-    app.post("/product", [middlewareAuth['isAdmin']], addProduct)
-    app.get("/products", getAllProducts)
-    app.post("/updateProduct", [middlewareAuth['isAdmin']], updateProduct)
-    app.get("/deleteProduct", [middlewareAuth['isAdmin']], deleteProduct)
+    // [middlewareAuth['isAdmin']]
+    let route = '/product';
+
+    app.post(`${route}/add`, addProduct);
+
+    app.get(`${route}/get`, getAllProducts);
+
+    app.post(`${route}/update`, [middlewareAuth['isAdmin']], updateProduct);
+
+    app.get(`${route}/delete`, [middlewareAuth['isAdmin']], deleteProduct);
 }

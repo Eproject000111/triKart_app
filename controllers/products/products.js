@@ -1,3 +1,4 @@
+const payloadHandler = require("../../helpers/payloadHandler");
 const productModel = require("../../models/products/products");
 const productAttributeModel = require("../../models/products/productsAttribute");
 const productSkuModel = require("../../models/products/productsSkus");
@@ -7,9 +8,26 @@ const productSkuModel = require("../../models/products/productsSkus");
 let addProduct = async (req, res) => {
     try{
 
-        const {title, sku, price, quantity, image} = req.body;
+        let fieldHandle = {
+            'title': req.body['title'],
+            "description": req.body['description'],
+            "quantity": req.body['description'],
+            "categoryId": req.body['categoryId']
+        }
 
-        if(!title || !sku || !price) return res.send("Fields are empty")
+        let isPayloadEmpty = payloadHandler(fieldHandle);
+
+        if(isPayloadEmpty['isNull']){
+
+            delete isPayloadEmpty['isNull'];
+            
+            return res.json({
+                success: false,
+                msg: 'Something went wrong',
+                data: null,
+                errorDesc: isPayloadEmpty
+            })
+        }
 
         let product = new productModel(req.body)
         product.save()

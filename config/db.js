@@ -18,22 +18,21 @@ module.exports = async () => {
     } */
 
     try {
-       await mongoose.connect(DB_CON_STRING, {
+
+       let conn = await mongoose.connect(DB_CON_STRING, {
             serverSelectionTimeoutMS: 5000,
         });
 
-        console.log("✅ MongoDB Connected Successfully!");
+        console.log(`✅ server setup Successfully!`);
 
         return mongoose.connections[0].readyState;
 
     } catch (error) {
-        console.error("❌ MongoDB Connection Error:", error.message);
+        console.error("❌ Server Error:", error.message);
         return mongoose.connections[0].readyState;
         // process.exit(1);
     }
 }
-
-// mongodb+srv://<db_username>:<db_password>@cluster0.dwljcj3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 /* const connectDB = async () => {
 

@@ -1,9 +1,8 @@
 const mongoose = require("mongoose")
 
 const orderSchema = mongoose.Schema({
-
-    orderId : String,
     user : {type:mongoose.Schema.Types.ObjectId, ref:'user', required:true},
+    shippingAddress : {type:mongoose.Schema.Types.ObjectId, ref:'address', required:true},
     items : 
         [
             {
@@ -13,16 +12,20 @@ const orderSchema = mongoose.Schema({
                 price : Number
             }
         ],
-    amount : Number,
-    discount : Number,
-    shippingAddress : String,
-    status : {type : String, enum : ["pending", "shipped", "delivered"]},
-    country : {type : String},
-    city : {type : String},
-    zipcode : {type : String},
+    amount : {
+        type: Number
+    },
+    discount : {
+        type: Number
+    },
+    status : {
+        type: String,
+        enum: ["pending", "shipped", "delivered", "cancelled", "returned"],
+        default: "pending",
+    },
     payment_type : {type : String, enum: ["cod","online"]},
-    shippedOn : {type : String},
-    deliveredOn : {type : String}
+    shippedOn : {type : Date},
+    deliveredOn : {type : Date}
 
 }, { timestamps : true })
 
